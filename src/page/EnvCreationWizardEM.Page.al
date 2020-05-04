@@ -80,7 +80,7 @@ page 55502 "Env. Creation Wizard_EM"
                             begin
                                 NewEnvironmentName := DelChr(NewEnvironmentName, '<>');
                                 Environment.SetFilter(Name, '%1', '@' + NewEnvironmentName);
-                                if Environment.IsEmpty() then
+                                if not Environment.IsEmpty() then
                                     Error(EnvironmentAlreadyExistsErr);
                             end;
                         }
