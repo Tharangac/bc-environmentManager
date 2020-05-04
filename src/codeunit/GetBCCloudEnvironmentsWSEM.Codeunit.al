@@ -21,9 +21,9 @@ codeunit 55503 "GetBCCloudEnvironments WS_EM"
         ConnectionSetup: Record "Environments Setup_EM";
     begin
         WITH Arguments DO begin
-            URL := CopyStr(STRSUBSTNO('%1%2', ConnectionSetup.GetBaseURL(), APIRequest), 0, MaxStrLen(URL));
+            URL := CopyStr(STRSUBSTNO('%1%2', ConnectionSetup.GetBaseURL(), APIRequest), 1, MaxStrLen(URL));
             RestMethod := RestMethod::get;
-            Bearer := CopyStr(ConnectionSetup.GetAuthToken(), 0, MaxStrLen(Bearer));
+            Bearer := CopyStr(ConnectionSetup.GetAuthToken(), 1, MaxStrLen(Bearer));
         end;
     end;
 
@@ -54,12 +54,12 @@ codeunit 55503 "GetBCCloudEnvironments WS_EM"
             WITH Environment do begin
                 Init();
                 id := i + 1;
-                Type := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'type'), 0, MaxStrLen(Type));
-                Name := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'name'), 0, MaxStrLen(Name));
-                Country := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'countryCode'), 0, MaxStrLen(Country));
-                Version := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'applicationVersion'), 0, MaxStrLen(Version));
-                Status := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'status'), 0, MaxStrLen(Status));
-                webClientLoginUrl := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'webClientLoginUrl'), 0, MaxStrLen(webClientLoginUrl));
+                Type := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'type'), 1, MaxStrLen(Type));
+                Name := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'name'), 1, MaxStrLen(Name));
+                Country := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'countryCode'), 1, MaxStrLen(Country));
+                Version := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'applicationVersion'), 1, MaxStrLen(Version));
+                Status := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'status'), 1, MaxStrLen(Status));
+                webClientLoginUrl := CopyStr(WebService.SelectJsonValueAsText(JsonObject, 'webClientLoginUrl'), 1, MaxStrLen(webClientLoginUrl));
                 Insert(true);
             end;
         end;
