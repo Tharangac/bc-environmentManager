@@ -1,13 +1,12 @@
 codeunit 55504 "GetAuthHeaderWS_EM"
 {
-    procedure GetToken(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]) Token: Text
+    procedure GetToken(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]; ShowErrorMsg: Boolean; var ErrorMsg: Text) Token: Text
     var
         HttpClient: HttpClient;
         ContentHeaders: HttpHeaders;
-        HttpRequestMessage: HttpRequestMessage;
         Content: HttpContent;
         Response: HttpResponseMessage;
-        authUrl: Label 'https://login.windows.net/%1/oauth2/token?resource=https://api.businesscentral.dynamics.com';
+        AuthURLLbl: Label 'https://login.windows.net/%1/oauth2/token?resource=https://api.businesscentral.dynamics.com', Comment = '%1 domain name';
         body: Text;
         ResponseText: Text;
         JsonObject: JsonObject;
@@ -24,7 +23,7 @@ codeunit 55504 "GetAuthHeaderWS_EM"
         content.GetHeaders(contentHeaders);
         contentHeaders.Clear();
         contentHeaders.Add('Content-Type', 'application/x-www-form-urlencoded');
-        HttpClient.Post(StrSubstNo(authUrl, TenantDomain), Content, Response);
+        HttpClient.Post(StrSubstNo(AuthURLLbl, TenantDomain), Content, Response);
 
         Response.Content.ReadAs(ResponseText);
         JsonObject.ReadFrom(ResponseText);

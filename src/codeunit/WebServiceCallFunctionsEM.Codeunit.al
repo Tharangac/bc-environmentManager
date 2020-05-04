@@ -2,13 +2,12 @@ codeunit 55508 "WebService Call Functions_EM"
 {
     procedure CallWebService(var Arguments: Record "WebService Argument_EM"): Boolean
     var
+        Base64Convert: Codeunit "Base64 Convert";
         HttpClient: HttpClient;
         RequestMessage: HttpRequestMessage;
         ResponseMessage: HttpResponseMessage;
         Content: HttpContent;
         AuthText: Text;
-        TempBlob: Codeunit "Temp Blob";
-        Base64Convert: Codeunit "Base64 Convert";
     begin
         RequestMessage.Method := Format(Arguments.RestMethod);
         RequestMessage.SetRequestUri(Arguments.URL);
@@ -16,9 +15,9 @@ codeunit 55508 "WebService Call Functions_EM"
             AuthText := StrSubstNo('%1:%2', Arguments.UserName, Arguments.Password);
             HttpClient.DefaultRequestHeaders.Add('Authorization', StrSubstNo('Basic %1', Base64Convert.ToBase64(AuthText)));
         end;
-        if Arguments.Bearer <> '' then begin
+
+        if Arguments.Bearer <> '' then
             HttpClient.DefaultRequestHeaders.Add('Authorization', StrSubstNo('Bearer %1', Arguments.Bearer));
-        end;
 
         HttpClient.Send(RequestMessage, ResponseMessage);
         if not ResponseMessage.IsSuccessStatusCode then
@@ -38,7 +37,7 @@ codeunit 55508 "WebService Call Functions_EM"
     begin
         if not GetJsonValue(JsonObject, Property, JsonValue) then
             EXIT;
-        Value := JsonValue.AsText;
+        Value := JsonValue.AsText();
     end;
 
     procedure GetJsonValueAsDecimal(var JsonObject: JsonObject; Property: text) Value: Decimal;
@@ -47,7 +46,7 @@ codeunit 55508 "WebService Call Functions_EM"
     begin
         if not GetJsonValue(JsonObject, Property, JsonValue) then
             EXIT;
-        Value := JsonValue.AsDecimal;
+        Value := JsonValue.AsDecimal();
     end;
 
     local procedure GetJsonValue(var JsonObject: JsonObject; Property: text; var JsonValue: JsonValue): Boolean;
@@ -56,7 +55,7 @@ codeunit 55508 "WebService Call Functions_EM"
     begin
         if not JsonObject.Get(Property, JsonToken) then
             exit;
-        JsonValue := JsonToken.AsValue;
+        JsonValue := JsonToken.AsValue();
         Exit(true);
     end;
 
@@ -66,7 +65,7 @@ codeunit 55508 "WebService Call Functions_EM"
     begin
         if not SelectJsonValue(JsonObject, Path, JsonValue) then
             EXIT;
-        Value := JsonValue.AsText;
+        Value := JsonValue.AsText();
     end;
 
     procedure SelectJsonToken(JsonObject: JsonObject; Path: Text) JsonToken: JsonToken
@@ -90,7 +89,7 @@ codeunit 55508 "WebService Call Functions_EM"
     begin
         if not JsonObject.SelectToken(Path, JsonToken) then
             exit;
-        JsonValue := JsonToken.AsValue;
+        JsonValue := JsonToken.AsValue();
         Exit(true);
     end;
 

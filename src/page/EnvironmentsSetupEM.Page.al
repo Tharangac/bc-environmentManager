@@ -4,7 +4,7 @@ page 55500 "Environments Setup_EM"
     PageType = Card;
     SourceTable = "Environments Setup_EM";
     UsageCategory = Administration;
-    ApplicationArea = Basic;
+    ApplicationArea = All;
     Caption = 'Environments Setup';
 
     layout
@@ -13,30 +13,36 @@ page 55500 "Environments Setup_EM"
         {
             group(General)
             {
-                field("Base API url"; "Resource url")
+                field("Base API URL"; "Resource url")
                 {
                     ApplicationArea = All;
                     ExtendedDatatype = URL;
+                    ToolTip = 'Base API URL';
                 }
                 field("Tenant Domain"; "Tenant Domain")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Tenant Domain';
                 }
-                field("App Id"; "App Id")
+                field("APP ID"; "App Id")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'APP ID';
                 }
                 field("Client Secret"; "Client Secret")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Client Secret';
                 }
                 field("User Name"; "User Name")
                 {
                     ApplicationArea = All;
+                    ToolTip = '"User Name';
                 }
                 field("User Password"; "User Password")
                 {
                     ApplicationArea = All;
+                    ToolTip = 'User Password';
                 }
             }
         }
@@ -50,7 +56,7 @@ page 55500 "Environments Setup_EM"
                 Caption = 'Test Connection';
                 ToolTip = 'Test Connection with the subsidiary web service';
                 Image = LinkWeb;
-                ApplicationArea = Basic;
+                ApplicationArea = All;
                 Promoted = true;
                 PromotedOnly = true;
                 PromotedIsBig = true;
@@ -90,7 +96,7 @@ page 55500 "Environments Setup_EM"
 
     procedure CheckEncryption()
     begin
-        IF NOT CheckedEncryption AND NOT ENCRYPTIONENABLED THEN BEGIN
+        IF NOT CheckedEncryption AND NOT ENCRYPTIONENABLED() THEN BEGIN
             CheckedEncryption := TRUE;
             IF CONFIRM(EncryptionIsNotActivatedQst) THEN BEGIN
                 PAGE.RUN(PAGE::"Data Encryption Management");

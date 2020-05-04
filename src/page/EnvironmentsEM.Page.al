@@ -20,6 +20,7 @@ page 55501 "Environments_EM"
                 {
                     ApplicationArea = All;
                     ExtendedDatatype = URL;
+                    ToolTip = 'Name';
 
                     trigger OnDrillDown()
                     begin
@@ -29,25 +30,30 @@ page 55501 "Environments_EM"
                 field(Version; Version)
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Version';
                 }
                 field(Country; Country)
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Country';
                 }
                 field(Type; Type)
                 {
                     ApplicationArea = All;
+                    ToolTip = 'Type';
                 }
                 field(Status; Status)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleTxt;
+                    ToolTip = 'Status';
                 }
                 field(webClientLoginUrl; webClientLoginUrl)
                 {
                     Caption = 'Web client url';
                     ApplicationArea = All;
                     ExtendedDatatype = URL;
+                    ToolTip = 'webClientLoginUrl';
                 }
             }
         }
@@ -64,6 +70,7 @@ page 55501 "Environments_EM"
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 PromotedOnly = true;
+                ToolTip = 'Update all environment';
                 trigger OnAction()
                 begin
                     GetBCCloudEnvironments();
@@ -112,6 +119,7 @@ page 55501 "Environments_EM"
                 PromotedIsBig = true;
                 PromotedOnly = true;
                 RunObject = page "Environments Setup_EM";
+                ToolTip = 'Navigate to environment setup';
             }
         }
     }

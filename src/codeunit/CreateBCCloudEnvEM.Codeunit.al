@@ -30,6 +30,7 @@ codeunit 55505 "CreateBCCloudEnv_EM"
         Jobj: JsonObject;
     begin
         Jobj.Add('environmentType', EnvironmentType);
+        Jobj.Add('environmentVersion', EnvironmentVersion);
         Jobj.Add('countryCode', EnvironmentCountry);
         Jobj.WriteTo(Body);
     end;

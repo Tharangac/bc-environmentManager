@@ -1,8 +1,8 @@
 codeunit 55507 "DeleteBCCloudEnv_EM"
 {
-    procedure RemoveBCCloudEnvironmentConfirm(EnvironmentName: text[30])
+    procedure RemoveBCCloudEnvironmentConfirm(EnvironmentName: text[50])
     var
-        DoYouReallyWantToDeleteLbl: Label 'Do you really want to delete %1 environment?';
+        DoYouReallyWantToDeleteLbl: Label 'Do you really want to delete %1 environment?', Comment = '%1 Env name';
         AreYouSureLbl: Label 'Are you sure?';
         CanYouConfirmLbl: Label 'Can you please confirm again?';
     begin
@@ -19,15 +19,12 @@ codeunit 55507 "DeleteBCCloudEnv_EM"
 
     end;
 
-    procedure RemoveBCCloudEnvironment(EnvironmentName: text[30])
+    procedure RemoveBCCloudEnvironment(EnvironmentName: text[50])
     var
         ConnectionSetup: Record "Environments Setup_EM";
         APIRequest: Text;
         Client: HttpClient;
-        Content: HttpContent;
-        contentHeaders: HttpHeaders;
         Response: HttpResponseMessage;
-        body: Text;
         url: text;
     begin
         APIRequest := StrSubstNo('/admin/v2.0/applications/BusinessCentral/environments/%1', EnvironmentName);

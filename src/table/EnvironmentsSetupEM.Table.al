@@ -101,9 +101,10 @@ table 55500 "Environments Setup_EM"
     procedure GetAuthToken(): Text
     var
         EnvironmentMgt: Codeunit "Environments Mgt._EM";
+        ErrorMessage: Text;
     begin
         InsertIfNotExists();
-        exit(EnvironmentMgt.GetAuthHeader("Resource url", "User Name", GetPassword(), "Tenant Domain", "App Id", "Client Secret"));
+        exit(EnvironmentMgt.GetAuthHeader("Resource url", "User Name", GetPassword(), "Tenant Domain", "App Id", "Client Secret", true, ErrorMessage));
     end;
 
 

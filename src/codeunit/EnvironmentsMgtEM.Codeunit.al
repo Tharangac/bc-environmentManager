@@ -6,23 +6,23 @@ codeunit 55501 "Environments Mgt._EM"
         exit(SendTestRequest(URL, Username, Password, TenantDomain, AppId, ClientSecret, ShowErrorMsg, ErrorMsg));
     end;
 
-    local procedure SendTestRequest(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]; ShowErrorMsg: Boolean; var ErrorMsg: Text) isSuccess: Boolean
+    local procedure SendTestRequest(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]; ShowErrorMsg: Boolean; var ErrorMsg: Text): Boolean
     begin
-        exit(GetAuthHeader(url, Username, Password, TenantDomain, AppId, ClientSecret) <> '');
+        exit(GetAuthHeader(url, Username, Password, TenantDomain, AppId, ClientSecret, ShowErrorMsg, ErrorMsg) <> '');
     end;
 
-    procedure GetAuthHeader(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]): Text
+    procedure GetAuthHeader(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]; ShowErrorMsg: Boolean; var ErrorMsg: Text): Text
     var
         GetAuthHeaderWS: Codeunit "GetAuthHeaderWS_EM";
     begin
-        exit(GetAuthHeaderWS.GetToken(URL, Username, Password, TenantDomain, AppId, ClientSecret));
+        exit(GetAuthHeaderWS.GetToken(URL, Username, Password, TenantDomain, AppId, ClientSecret, ShowErrorMsg, ErrorMsg));
     end;
 
     procedure GetBCCloudEnvironments();
     var
-        GetBCCloudEnvironments: Codeunit "GetBCCloudEnvironments WS_EM";
+        GetBCCloudEnvironment: Codeunit "GetBCCloudEnvironments WS_EM";
     begin
-        GetBCCloudEnvironments.GetBCCloudEnvironments();
+        GetBCCloudEnvironment.GetBCCloudEnvironments();
     end;
 
     procedure RunCreateNewEnvironmentWizard()
@@ -32,16 +32,16 @@ codeunit 55501 "Environments Mgt._EM"
 
     procedure NewBCCloudEnvironment(EnvironmentName: text[30]; EnvironmentCountry: code[2]; EnvironmentVersion: code[20]; EnvironmentType: Text);
     var
-        NewBCCloudEnvironment: Codeunit "CreateBCCloudEnv_EM";
+        NewBCEnv: Codeunit "CreateBCCloudEnv_EM";
     begin
-        NewBCCloudEnvironment.NewBCCloudEnvironment(EnvironmentName, EnvironmentCountry, EnvironmentVersion, EnvironmentType);
+        NewBCEnv.NewBCCloudEnvironment(EnvironmentName, EnvironmentCountry, EnvironmentVersion, EnvironmentType);
     end;
 
-    procedure RemoveBCCloudEnvironment(EnvironmentName: text[30]);
+    procedure RemoveBCCloudEnvironment(EnvironmentName: text[50]);
     var
-        RemoveBCCloudEnvironment: Codeunit "DeleteBCCloudEnv_EM";
+        RemoveBCEnv: Codeunit "DeleteBCCloudEnv_EM";
     begin
-        RemoveBCCloudEnvironment.RemoveBCCloudEnvironmentConfirm(EnvironmentName);
+        RemoveBCEnv.RemoveBCCloudEnvironmentConfirm(EnvironmentName);
     end;
 
     local procedure DemoSaaSCompany(): Boolean
@@ -49,7 +49,7 @@ codeunit 55501 "Environments Mgt._EM"
         EnvironmentInfo: Codeunit "Environment Information";
         CompanyInformationMgt: Codeunit "Company Information Mgt.";
     begin
-        EXIT(EnvironmentInfo.IsSaaS() AND CompanyInformationMgt.IsDemoCompany);
+        EXIT(EnvironmentInfo.IsSaaS() AND CompanyInformationMgt.IsDemoCompany());
     end;
 
 

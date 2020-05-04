@@ -103,7 +103,7 @@ table 55503 "WebService Argument_EM"
         InStr: InStream;
         Line: text;
     begin
-        if not HasResponseContent then
+        if not HasResponseContent() then
             exit;
 
         Blob.CreateInStream(InStr);

@@ -19,6 +19,7 @@ page 55502 "Env. Creation Wizard_EM"
                     ApplicationArea = All;
                     Editable = false;
                     ShowCaption = false;
+                    ToolTip = 'MediaResourcesStandard';
                 }
             }
             group(FinishedBanner)
@@ -31,6 +32,7 @@ page 55502 "Env. Creation Wizard_EM"
                     ApplicationArea = All;
                     Editable = false;
                     ShowCaption = false;
+                    ToolTip = 'MediaResourcesDone';
                 }
             }
 
@@ -69,6 +71,8 @@ page 55502 "Env. Creation Wizard_EM"
                             ApplicationArea = Basic, Suite;
                             ShowCaption = false;
                             ShowMandatory = true;
+                            ToolTip = 'Environment Name';
+                            Caption = 'Environment Name';
 
                             trigger OnValidate()
                             var
@@ -76,7 +80,7 @@ page 55502 "Env. Creation Wizard_EM"
                             begin
                                 NewEnvironmentName := DelChr(NewEnvironmentName, '<>');
                                 Environment.SetFilter(Name, '%1', '@' + NewEnvironmentName);
-                                if Environment.FindFirst then
+                                if Environment.IsEmpty() then
                                     Error(EnvironmentAlreadyExistsErr);
                             end;
                         }
@@ -92,6 +96,7 @@ page 55502 "Env. Creation Wizard_EM"
                                 Caption = 'Type';
                                 ApplicationArea = Basic, Suite;
                                 OptionCaption = 'Production,Sandbox';
+                                ToolTip = 'Environment Type';
                                 trigger OnValidate()
                                 begin
                                     SetDefaultNewEnvironmentName();
@@ -101,12 +106,14 @@ page 55502 "Env. Creation Wizard_EM"
                             {
                                 Caption = 'Country';
                                 ApplicationArea = Basic, Suite;
+                                ToolTip = 'Country';
                             }
                             field(Version; NewEnvironmentVersion)
                             {
                                 Caption = 'Version';
                                 ApplicationArea = Basic, Suite;
                                 Visible = false;
+                                ToolTip = 'Version';
                             }
 
                         }
@@ -142,6 +149,7 @@ page 55502 "Env. Creation Wizard_EM"
                 Enabled = BackActionEnabled;
                 Image = PreviousRecord;
                 InFooterBar = true;
+                ToolTip = 'Back';
                 trigger OnAction();
                 begin
                     NextStep(true);
@@ -151,6 +159,7 @@ page 55502 "Env. Creation Wizard_EM"
             {
                 ApplicationArea = All;
                 Caption = 'Next';
+                ToolTip = 'Next';
                 Enabled = NextActionEnabled;
                 Image = NextRecord;
                 InFooterBar = true;
@@ -163,6 +172,7 @@ page 55502 "Env. Creation Wizard_EM"
             {
                 ApplicationArea = All;
                 Caption = 'Finish';
+                ToolTip = 'Finish';
                 Enabled = FinishActionEnabled;
                 Image = Approve;
                 InFooterBar = true;
