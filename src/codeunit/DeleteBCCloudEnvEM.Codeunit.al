@@ -2,21 +2,13 @@ codeunit 55507 "DeleteBCCloudEnv_EM"
 {
     procedure RemoveBCCloudEnvironmentConfirm(EnvironmentName: text[50])
     var
-        DoYouReallyWantToDeleteLbl: Label 'Do you really want to delete %1 environment?', Comment = '%1 Env name';
-        AreYouSureLbl: Label 'Are you sure?';
-        CanYouConfirmLbl: Label 'Can you please confirm again?';
+        DoYouReallyWantToDeleteLbl: Label 'Do you want to delete %1 environment?', Comment = '%1 Env name';
     begin
         if not Confirm(strsubstno(DoYouReallyWantToDeleteLbl, EnvironmentName), false) then
             exit;
-        if not Confirm(AreYouSureLbl, false) then
-            exit;
-        if Confirm(CanYouConfirmLbl, false) then begin
-            Message('Sorry, you have to go to sleep');
-            exit;
-        end;
-        Message('Oook, Let''s do it');
-        RemoveBCCloudEnvironment(EnvironmentName);
 
+        Message('Deleting..');
+        RemoveBCCloudEnvironment(EnvironmentName);
     end;
 
     procedure RemoveBCCloudEnvironment(EnvironmentName: text[50])

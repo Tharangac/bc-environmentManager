@@ -75,34 +75,9 @@ page 55500 "Environments Setup_EM"
         }
     }
 
-    var
-        Password: Text[50];
-        CheckedEncryption: Boolean;
-        EncryptionIsNotActivatedQst: Label 'Data encryption is not activated. It is recommended that you encrypt data. \Do you want to open the Data Encryption Management window?';
-
-
     trigger OnOpenPage()
     begin
         InsertIfNotExists();
-    end;
-
-    trigger OnAfterGetRecord()
-    begin
-
-        IF HasPassword() THEN
-            Password := 'Password Dots';
-    end;
-
-
-    procedure CheckEncryption()
-    begin
-        IF NOT CheckedEncryption AND NOT ENCRYPTIONENABLED() THEN BEGIN
-            CheckedEncryption := TRUE;
-            IF CONFIRM(EncryptionIsNotActivatedQst) THEN BEGIN
-                PAGE.RUN(PAGE::"Data Encryption Management");
-                CheckedEncryption := FALSE;
-            END;
-        END;
     end;
 
 }
