@@ -13,14 +13,14 @@ codeunit 55501 "Environments Mgt._EM"
 
     procedure GetAuthHeader(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]; ShowErrorMsg: Boolean; var ErrorMsg: Text): Text
     var
-        GetAuthHeaderWS: Codeunit "GetAuthHeaderWS_EM";
+        GetAuthHeaderWS: Codeunit "GetAuthHeader_EM";
     begin
         exit(GetAuthHeaderWS.GetToken(URL, Username, Password, TenantDomain, AppId, ClientSecret, ShowErrorMsg, ErrorMsg));
     end;
 
     procedure GetBCCloudEnvironments();
     var
-        GetBCCloudEnvironment: Codeunit "GetBCCloudEnvironments WS_EM";
+        GetBCCloudEnvironment: Codeunit "GetBCCloudEnvironments_EM";
     begin
         GetBCCloudEnvironment.GetBCCloudEnvironments();
     end;

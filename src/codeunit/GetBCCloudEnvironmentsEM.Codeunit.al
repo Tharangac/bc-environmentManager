@@ -1,4 +1,4 @@
-codeunit 55503 "GetBCCloudEnvironments WS_EM"
+codeunit 55503 "GetBCCloudEnvironments_EM"
 {
     procedure GetBCCloudEnvironments()
     var

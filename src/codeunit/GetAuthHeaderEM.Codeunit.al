@@ -1,4 +1,4 @@
-codeunit 55504 "GetAuthHeaderWS_EM"
+codeunit 55504 "GetAuthHeader_EM"
 {
     procedure GetToken(URL: Text; Username: Text; Password: Text; TenantDomain: Text; AppId: Guid; ClientSecret: Text[50]; ShowErrorMsg: Boolean; var ErrorMsg: Text) Token: Text
     var
